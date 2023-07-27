@@ -39,23 +39,25 @@ class User
         // exit;
         $stmt->execute();
         
-        while($rows = $stmt->fetchAll(PDO::FETCH_ASSOC))
+        while($rows = $stmt->fetch(PDO::FETCH_ASSOC))
         {
             $User[] = $rows;
         }
         
+        
         if (!empty($User)) 
         {
-            $UserId            = $user[0]['Id'];
-            $UserName          = $user[0]['Name'];
-            $UserType          = $user[0]['UserType'];
-            $Email             = $user[0]['EmailId'];
-            $Phone             = $user[0]['MobileNo'];
+            session_start();
+            $UserId            = $User[0]['Id'];
+            $UserName          = $User[0]['Name'];
+            $UserType          = $User[0]['UserType'];
+            $Email             = $User[0]['EmailId'];
+            $Phone             = $User[0]['MobileNo'];
             $_SESSION['user']      = $UserId;
             $_SESSION['username']  = $UserName;
             $_SESSION['usertype']  = $UserType;
             $_SESSION['email']     = $Email;
-            $_SESSION['phone']     = $Phone;
+            $_SESSION['phone']     = $Phone;  
             header("Location: http://localhost/vts/views/dashboard.php");
             // exit;
         } else 
