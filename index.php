@@ -1,4 +1,11 @@
-<?php session_start();//session start ?>
+<?php session_start();//session start 
+require_once __DIR__.'/model/User.php';
+if(isset($_POST['login'])){
+  $user = new User();
+  $user->login($_POST['email'], $_POST['password']);
+}
+
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -37,7 +44,7 @@
       </h5>
       <p class="login-box-msg">Login to your account</p>
 
-      <form action="models/User.php?f=userAuth" method="post">
+      <form action="" method="post">
         <div class="input-group mb-3">
           <input type="email" name="email" class="form-control" placeholder="Email">
           <div class="input-group-append">
@@ -57,7 +64,7 @@
         <div class="row">
           <!-- /.col -->
           <div class="col-12">
-            <button type="submit" class="btn btn-primary btn-block">Login</button>
+            <button type="submit" name="login" class="btn btn-primary btn-block">Login</button>
           </div>
           <!-- /.col -->
         </div>
