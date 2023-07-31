@@ -20,8 +20,8 @@ if(isset($_GET['id'])) {
 }
 
 if(isset($_POST['submit'])){
-	$user = new User();
-	$user->register();
+	$post_user = new User();
+	$post_user->register();
 }
 ?>
 <!-- =============================================== -->
@@ -73,7 +73,7 @@ if(isset($_POST['submit'])){
 									<div class="form-group">
                                         <label>E-mail <span class="red">*</span></label>
                                         <input type="email" class="form-control" name="email" value="<?php if(isset($_GET['id'])) { echo $User[0]['EmailId']; }?>" placeholder="E-MAIL" required>
-										<input type="hidden" class="form-control" name="id" value="<?php echo $User[0]['Id'];?>">
+										<input type="hidden" class="form-control" name="id" value="<?php if(isset($_GET['id'])) { echo $User[0]['Id']; }?>">
 									</div>
 								</div>
 								<div class="col-lg-4">

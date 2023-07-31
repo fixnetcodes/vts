@@ -83,8 +83,6 @@ class User
             'UserType'  => str_replace("'","\'",$_POST['user_type']),
             'MobileNo'  => $_POST['mobile'],
         );
-        // echo json_encode($userData);
-        // exit;
         
         //count array data
         $total_data = count($userData);
@@ -94,41 +92,24 @@ class User
         {
             foreach($userData as $columns => $values)
             {
+                $update_query.="$columns = '$values'";
                 if($total_data > 1)
                 {
-                    $update_query .= "$columns";
-                    $update_query .= "=";
-                    $update_query .= "'";
-                    $update_query .= $values;
-                    $update_query .= "',";
+                    $update_query .= ", ";
                     $total_data--;
-                }else
-                {
-                    $update_query .= "$columns";
-                    $update_query .= "=";
-                    $update_query .= "'";
-                    $update_query .= $values;
-                    $update_query .= "',";
                 }
             }
-            if(!empty($_POST['password'])){	
-                $query="Update usermaster set $update_query where Id= ".$_POST['id']."";
-            }else{
-             $query="Update usermaster set 
-                 Name      = '".str_replace("'","\'",$_POST['fullname'])."',
-                EmailId   = '".str_replace("'","\'",$_POST['email'])."',
-                UserType  = '".str_replace("'","\'",$_POST['user_type'])."',
-                MobileNo  = '".$_POST['mobile']."'
-             where Id=".$_POST['id']."
-             ";
-            }
+            $query = "UPDATE usermaster SET $update_query WHERE Id = " . $_POST['id'];
             $stmt = $data->prepare($query);
-            $_SESSION['message']= '<div class="alert alert-success">User updated successfully...</div>'; 
-            ?>
-            <script>
-            window.history.back();
-            </script>
-            <?php
+            if($stmt->execute()){
+                $_SESSION['message']= '<div class="alert alert-success">User updated successfully...</div>'; 
+                ?>
+                <script>
+                window.history.back();
+                </script>
+                <?php
+            }
+           
         }else
         {
             foreach($userData as $key=>$value)
@@ -140,7 +121,7 @@ class User
             $values   = implode("','", array_values($userData)); //values for insert query
             $query="INSERT INTO usermaster($fields) values('$values')";
             $results = $data->prepare($query);
-            if($results) {
+            if($results->execute()) {
                 $_SESSION['message']='<div class="alert alert-success">User created successfully...</div>'; 
                 ?>
                 <script>
