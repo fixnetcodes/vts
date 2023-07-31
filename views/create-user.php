@@ -76,12 +76,14 @@ if(isset($_POST['submit'])){
 										<input type="hidden" class="form-control" name="id" value="<?php if(isset($_GET['id'])) { echo $User[0]['Id']; }?>">
 									</div>
 								</div>
+								<?php if(isset($_GET['id']) == null){ ?>
 								<div class="col-lg-4">
 									<div class="form-group">
 										<label>Password <span class="red">*</span></label>
 										<input type="password" class="form-control" name="password" placeholder="PASSWORD" value="<?php if(isset($_GET['id'])) { echo $User[0]['Password']; }?>" required>
 									</div>
 								</div>
+								<?php } ?>
 								
 								<div class="col-lg-4">
 									<div class="form-group">
