@@ -103,11 +103,7 @@ class User
             $stmt = $data->prepare($query);
             if($stmt->execute()){
                 $_SESSION['message']= '<div class="alert alert-success">User updated successfully...</div>'; 
-                ?>
-                <script>
-                window.history.back();
-                </script>
-                <?php
+                
             }
            
         }else
@@ -123,11 +119,6 @@ class User
             $results = $data->prepare($query);
             if($results->execute()) {
                 $_SESSION['message']='<div class="alert alert-success">User created successfully...</div>'; 
-                ?>
-                <script>
-                window.history.back();
-                </script>
-                <?php
             } else {
                 $_SESSION['message']='<div class="alert alert-danger">Problem in user creation...</div>'; 
                 ?>
