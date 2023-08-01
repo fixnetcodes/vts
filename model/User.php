@@ -78,7 +78,7 @@ class User
         
         $userData = array(
             'Name'      => str_replace("'","\'",$_POST['fullname']),
-            'Password'  =>md5( $_POST['password']),
+            'Password'  =>md5($_POST['password']),
             'EmailId'   => str_replace("'","\'",$_POST['email']),
             'UserType'  => str_replace("'","\'",$_POST['user_type']),
             'MobileNo'  => $_POST['mobile'],
@@ -99,7 +99,18 @@ class User
                     $total_data--;
                 }
             }
-            $query = "UPDATE usermaster SET $update_query WHERE Id = " . $_POST['id'];
+            if(!empty($_POST['password'])){
+                $query = "UPDATE usermaster SET $update_query WHERE Id = " . $_POST['id'];
+            }else{
+                $query="Update usermaster set 
+                    Name      = '".str_replace("'","\'",$_POST['fullname'])."',
+                    EmailId   = '".str_replace("'","\'",$_POST['email'])."',
+                    UserType  = '".str_replace("'","\'",$_POST['user_type'])."',
+                    MobileNo  = '".$_POST['mobile']."'
+                where Id=".$_POST['id']."
+                ";
+            }
+            
             $stmt = $data->prepare($query);
             if($stmt->execute()){
                 $_SESSION['message']= '<div class="alert alert-success">User updated successfully...</div>'; 
