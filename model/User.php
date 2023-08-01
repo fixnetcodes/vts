@@ -58,7 +58,7 @@ class User
             $_SESSION['usertype']  = $UserType;
             $_SESSION['email']     = $Email;
             $_SESSION['phone']     = $Phone;  
-            header("Location: http://localhost/vts/views/dashboard.php");
+            header("Location: http://localhost/vts_project/views/dashboard.php");
             // exit;
         } else 
         {
