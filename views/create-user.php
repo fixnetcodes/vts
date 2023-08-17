@@ -76,22 +76,20 @@ if(isset($_POST['submit'])){
 										<input type="hidden" class="form-control" name="id" value="<?php if(isset($_GET['id'])) { echo $User[0]['Id']; }?>">
 									</div>
 								</div>
-								<?php if(isset($_GET['id']) == null){ ?>
 								<div class="col-lg-4">
 									<div class="form-group">
 										<label>Password <span class="red">*</span></label>
 										<input type="password" class="form-control" name="password" placeholder="PASSWORD" value="<?php if(isset($_GET['id'])) { echo $User[0]['Password']; }?>" required>
 									</div>
 								</div>
-								<?php } ?>
 								
 								<div class="col-lg-4">
 									<div class="form-group">
 										<label>User Type <span class="red">*</span></label>
 										<select class="form-control" name="user_type" id="user_type" required>
 											<option value="<?php if(isset($_GET['id'])) { echo strtoupper($User[0]['UserType']); } else { echo ""; } ?>" disabled><?php if(isset($_GET['id'])) { echo strtoupper($User[0]['UserType']); } else { echo "Please select"; } ?></option>
-											<option value="Admin">Admin</option>
-											<option value="Support">Support</option>
+											<option value="Admin"<?php echo ($User[0]['UserType']=='Admin') ? 'selected' : 'Admin' ?>>Admin</option>
+											<option value="Support"<?php echo ($User[0]['UserType']=='Support') ? 'selected' : 'Support' ?>>Support</option>
 										</select>
 									</div>
 								</div>
